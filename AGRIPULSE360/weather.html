@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Forecast - AGRIPULSE360</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            background-color: #f0f2f5;
+        }
+        .sidebar {
+            height: 100vh;
+            background: #2c3e50;
+            color: white;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 60px;
+            padding-top: 20px;
+            z-index: 1000;
+            transition: width 0.3s ease;
+            overflow-y: auto;
+        }
+
+        .sidebar .nav-link span, 
+        .sidebar h5 {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .main-content {
+            margin-left: 60px;
+            padding: 20px;
+            transition: margin-left 0.3s ease;
+        }
+
+        .weather-container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 30px;
+            margin-top: 20px;
+        }
+
+        .weather-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .location-search {
+            display: flex;
+            align-items: center;
+        }
+
+        .forecast-card {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .forecast-card:hover {
+            transform: scale(1.05);
+        }
+
+        .weather-icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .alert-card {
+            background-color: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 15px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div id="sidebar-placeholder"></div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container">
+            <div class="weather-container">
+                <div class="weather-header">
+                    <h2>Weather Forecast</h2>
+                    <div class="location-search">
+                        <input type="text" class="form-control me-2" id="locationInput" placeholder="Enter location">
+                        <button class="btn btn-primary" id="searchButton">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="current-weather row">
+                    <div class="col-md-6">
+                        <div class="forecast-card">
+                            <h3 id="currentLocation">Bengaluru, Karnataka</h3>
+                            <div class="weather-icon">
+                                <i class="fas fa-cloud-sun"></i>
+                            </div>
+                            <h4 id="currentTemp">32°C</h4>
+                            <p id="currentCondition">Partly Cloudy</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="forecast-card">
+                            <h4>Today's Details</h4>
+                            <p><i class="fas fa-tint"></i> Humidity: 65%</p>
+                            <p><i class="fas fa-wind"></i> Wind: 12 km/h</p>
+                            <p><i class="fas fa-cloud"></i> Precipitation: 20%</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col-md-3">
+                        <div class="forecast-card">
+                            <h5>Tomorrow</h5>
+                            <div class="weather-icon">
+                                <i class="fas fa-cloud-rain"></i>
+                            </div>
+                            <p>28°C / 22°C</p>
+                            <p>Rainy</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="forecast-card">
+                            <h5>Day After</h5>
+                            <div class="weather-icon">
+                                <i class="fas fa-sun"></i>
+                            </div>
+                            <p>35°C / 24°C</p>
+                            <p>Sunny</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="forecast-card">
+                            <h5>Next Day</h5>
+                            <div class="weather-icon">
+                                <i class="fas fa-cloud"></i>
+                            </div>
+                            <p>30°C / 23°C</p>
+                            <p>Cloudy</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="forecast-card">
+                            <h5>Next Day</h5>
+                            <div class="weather-icon">
+                                <i class="fas fa-cloud-sun-rain"></i>
+                            </div>
+                            <p>29°C / 21°C</p>
+                            <p>Scattered Showers</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="alert-card mt-4">
+                    <h5><i class="fas fa-exclamation-triangle"></i> Weather Alert</h5>
+                    <p>Moderate rainfall expected in the next 24 hours. Farmers advised to take necessary precautions.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Load sidebar -->
+    <script src="sidebar-loader.js"></script>
+    <script>
+        // Wait for sidebar to be loaded
+        function initSidebarInteraction() {
+            const sidebar = document.querySelector('.sidebar');
+            const mainContent = document.querySelector('.main-content');
+            
+            if (!sidebar || !mainContent) {
+                // If sidebar is not loaded, try again after a short delay
+                setTimeout(initSidebarInteraction, 100);
+                return;
+            }
+            
+            // Minimize sidebar when mouse leaves
+            sidebar.addEventListener('mouseleave', () => {
+                sidebar.style.width = '60px';
+                // Hide text and reduce opacity
+                const navLinks = sidebar.querySelectorAll('.nav-link span, .sidebar h5');
+                navLinks.forEach(link => {
+                    link.style.opacity = '0';
+                });
+            });
+
+            // Expand sidebar when mouse enters
+            sidebar.addEventListener('mouseenter', () => {
+                sidebar.style.width = '250px';
+                // Show text and increase opacity
+                const navLinks = sidebar.querySelectorAll('.nav-link span, .sidebar h5');
+                navLinks.forEach(link => {
+                    link.style.opacity = '1';
+                });
+            });
+
+            // Cursor tracking for main content
+            document.addEventListener('mousemove', (event) => {
+                const sidebarWidth = sidebar.offsetWidth;
+                const mouseX = event.clientX;
+
+                // If mouse is close to the sidebar, do nothing
+                if (mouseX <= sidebarWidth) {
+                    return;
+                }
+
+                // Minimize sidebar when cursor is far from it
+                sidebar.style.width = '60px';
+                const navLinks = sidebar.querySelectorAll('.nav-link span, .sidebar h5');
+                navLinks.forEach(link => {
+                    link.style.opacity = '0';
+                });
+            });
+        }
+
+        // Run initialization after DOM is loaded
+        document.addEventListener('DOMContentLoaded', initSidebarInteraction);
+
+        // Location search functionality (placeholder)
+        document.getElementById('searchButton').addEventListener('click', () => {
+            const location = document.getElementById('locationInput').value;
+            if (location) {
+                alert(`Weather search for ${location} will be implemented in future updates.`);
+            }
+        });
+    </script>
+</body>
+</html>

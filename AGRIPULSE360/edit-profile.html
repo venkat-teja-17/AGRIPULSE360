@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile - AGRIPULSE360</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #f0f2f5;
+        }
+        .sidebar {
+            height: 100vh;
+            background: #21beeed7;
+            color: white;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            padding-top: 20px;
+        }
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+            background: #ffffff;
+            min-height: 100vh;
+        }
+        .nav-link {
+            color: #ffffff;
+            padding: 10px 20px;
+            transition: all 0.3s ease;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #ffffff;
+            background: rgba(255,255,255,0.2);
+            border-radius: 5px;
+        }
+        .card {
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+            border: none;
+            background: #ffffff;
+        }
+        .profile-picture-upload {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px;
+        }
+        .profile-picture-upload img {
+            width: 100%;
+            height: 100%;
+            border-radius: 75px;
+            object-fit: cover;
+            border: 4px solid #21beeed7;
+        }
+        .upload-overlay {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background: #21beeed7;
+            width: 40px;
+            height: 40px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+        }
+        .btn-save {
+            background-color: #21beeed7;
+            color: white;
+            border: none;
+            padding: 10px 30px;
+        }
+        .btn-save:hover {
+            background-color: #1ca7d2;
+            color: white;
+        }
+        .sidebar a {
+            text-decoration: none;
+            color: white;
+        }
+        .sidebar a:hover {
+            color: rgba(255,255,255,0.9);
+        }
+        .logo-link {
+            display: block;
+            transition: transform 0.2s ease;
+        }
+        .logo-link:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div id="sidebar-placeholder"></div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container-fluid">
+            <!-- Header -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2>Edit Profile</h2>
+                <div class="d-flex gap-2">
+                    <a href="profile.html" class="btn btn-outline-secondary">Cancel</a>
+                    <button type="submit" form="editProfileForm" class="btn btn-save">Save Changes</button>
+                </div>
+            </div>
+
+            <!-- Edit Profile Form -->
+            <div class="row">
+                <div class="col-md-8">
+                    <form id="editProfileForm" action="profile.html">
+                        <!-- Profile Picture -->
+                        <div class="card mb-4">
+                            <div class="card-body text-center">
+                                <div class="profile-picture-upload">
+                                    <img src="images/avatar.png" alt="Profile Picture">
+                                    <label class="upload-overlay">
+                                        <i class="fas fa-camera"></i>
+                                        <input type="file" accept="image/*" style="display: none;">
+                                    </label>
+                                </div>
+                                <p class="text-muted">Click the camera icon to change profile picture</p>
+                            </div>
+                        </div>
+
+                        <!-- Personal Information -->
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h5 class="card-title mb-4">Personal Information</h5>
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label">First Name</label>
+                                        <input type="text" class="form-control" value="Raju">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Last Name</label>
+                                        <input type="text" class="form-control" value="Kumar">
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" class="form-control" value="rajesh.kumar@example.com">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Phone</label>
+                                    <input type="tel" class="form-control" value="+91 98765 43210">
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label">State</label>
+                                        <select class="form-select" id="state">
+                                            <option value="">Select State</option>
+                                            <!-- States will be populated by API -->
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">District</label>
+                                        <select class="form-select" id="district">
+                                            <option value="">Select District</option>
+                                            <!-- Districts will be populated based on selected state -->
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Village/Mandal</label>
+                                    <input type="text" class="form-control" id="village">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Pin Code</label>
+                                    <input type="text" class="form-control" id="pincode" maxlength="6" pattern="[0-9]{6}" placeholder="Enter 6-digit PIN code">
+                                    <small class="text-muted">Enter PIN code to auto-fill location details</small>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Aadhaar Number</label>
+                                    <input type="text" class="form-control" placeholder="XXXX-XXXX-XXXX">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Bio</label>
+                                    <textarea class="form-control" rows="3">Progressive farmer with 15 years of experience in sustainable agriculture and water management practices. Specializing in paddy and cotton cultivation.</textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Farm Information -->
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title mb-4">Farm Information</h5>
+                                <div class="mb-3">
+                                    <label class="form-label">Farm Name</label>
+                                    <input type="text" class="form-control" value="Sri Lakshmi Farms">
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label">Total Area</label>
+                                        <input type="text" class="form-control" value="25 hectares">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Irrigation System</label>
+                                        <select class="form-select">
+                                            <option>Drip Irrigation</option>
+                                            <option>Sprinkler System</option>
+                                            <option>Flood Irrigation</option>
+                                            <option>Micro Irrigation</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Main Crops</label>
+                                    <input type="text" class="form-control" value="Paddy, Cotton, Sugarcane">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Soil Type</label>
+                                    <select class="form-select">
+                                        <option>Black Soil</option>
+                                        <option>Red Soil</option>
+                                        <option>Alluvial Soil</option>
+                                        <option>Laterite Soil</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Tips Section -->
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title mb-4">Profile Tips</h5>
+                            <ul class="list-unstyled">
+                                <li class="mb-3">
+                                    <i class="fas fa-check-circle text-success me-2"></i>
+                                    Add a clear profile picture to help identify your account
+                                </li>
+                                <li class="mb-3">
+                                    <i class="fas fa-check-circle text-success me-2"></i>
+                                    Keep your contact information up to date
+                                </li>
+                                <li class="mb-3">
+                                    <i class="fas fa-check-circle text-success me-2"></i>
+                                    Provide accurate farm details for better recommendations
+                                </li>
+                                <li class="mb-3">
+                                    <i class="fas fa-check-circle text-success me-2"></i>
+                                    Regular updates help improve your farming experience
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Load sidebar -->
+    <script src="sidebar-loader.js"></script>
+</body>
+</html>

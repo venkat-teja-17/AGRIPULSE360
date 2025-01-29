@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="400" height="400" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+    <!-- Background -->
+    <rect width="400" height="400" fill="#90c49b" opacity="0.0"/>
+    
+    <!-- Globe base -->
+    <path d="M80 240 Q200 180 320 240" 
+          fill="none" 
+          stroke="#4CAF50" 
+          stroke-width="25" 
+          stroke-linecap="round"
+          opacity="0.6"/>
+          
+    <!-- Main center leaf -->
+    <path d="M200 140 
+             C220 120 240 140 200 180 
+             C160 140 180 120 200 140" 
+          fill="#4CAF50"/>
+    
+    <!-- Side leaves -->
+    <path d="M200 140 L200 100 L220 80" 
+          stroke="#4CAF50" 
+          stroke-width="12" 
+          fill="none"
+          stroke-linecap="round"/>
+    <path d="M200 140 L200 100 L180 80" 
+          stroke="#4CAF50" 
+          stroke-width="12" 
+          fill="none"
+          stroke-linecap="round"/>
+    
+    <!-- Hands -->
+    <path d="M100 240 Q130 200 160 220" 
+          stroke="#e6b89c" 
+          stroke-width="15" 
+          fill="none"
+          stroke-linecap="round"/>
+    <path d="M300 240 Q270 200 240 220" 
+          stroke="#e6b89c" 
+          stroke-width="15" 
+          fill="none"
+          stroke-linecap="round"/>
+</svg>

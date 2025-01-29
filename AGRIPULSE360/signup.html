@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Create your AGRIPULSE360 App account">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Join AGRIPULSE360 App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <main class="container">
+        <div class="app-logo">
+            <img src="images/logo-updated.svg" alt="AGRIPULSE360 Logo" class="logo">
+        </div>
+        <h1>Join AGRIPULSE360</h1>
+        <p class="app-description">Start your smart farming journey today</p>
+
+        <form id="signup-form" novalidate autocomplete="off">
+            <div class="form-group">
+                <input type="text" 
+                       id="name" 
+                       name="name"
+                       placeholder=" "
+                       minlength="2"
+                       maxlength="50"
+                       pattern="[A-Za-z\s]+"
+                       aria-required="true"
+                       required>
+                <label for="name">Full Name</label>
+                <span class="error-message" id="name-error"></span>
+            </div>
+            
+            <div class="form-group">
+                <div class="input-with-button">
+                    <div class="input-container">
+                        <input type="tel" 
+                               id="phone" 
+                               name="phone"
+                               placeholder=" "
+                               pattern="[0-9]{10}"
+                               aria-required="true"
+                               required>
+                        <label for="phone">Phone Number</label>
+                    </div>
+                    <button type="button" class="btn-otp">Get OTP</button>
+                </div>
+                <div class="helper-text">We'll send you an OTP for verification</div>
+                <span class="error-message" id="phone-error"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="email" 
+                       id="email" 
+                       name="email"
+                       placeholder=" "
+                       autocomplete="email"
+                       aria-required="true"
+                       required>
+                <label for="email">Email Address</label>
+                <span class="error-message" id="email-error"></span>
+            </div>
+            
+            <div class="form-group">
+                <input type="password" 
+                       id="password" 
+                       name="password"
+                       placeholder=" "
+                       minlength="8"
+                       aria-required="true"
+                       required>
+                <label for="password">Create Password</label>
+                <span class="toggle-password" onclick="togglePassword('password')">
+                    <i class="fas fa-eye"></i>
+                </span>
+                <div class="helper-text">Must be at least 8 characters with numbers and special characters</div>
+                <span class="error-message" id="password-error"></span>
+            </div>
+
+            <div class="terms-group">
+                <label class="checkbox-container">
+                    <input type="checkbox" 
+                           id="terms" 
+                           name="terms" 
+                           required>
+                    <span>I agree to the <a href="/terms" target="_blank">Terms of Service</a> and <a href="/privacy" target="_blank">Privacy Policy</a></span>
+                </label>
+            </div>
+            
+            <button type="submit" class="submit-button" aria-label="Create account">
+                Create Account
+                <span class="loading-spinner" hidden></span>
+            </button>
+        </form>
+
+        <p class="login-link">
+            Already using AGRIPULSE360? <a href="index.html">Log in</a>
+        </p>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
